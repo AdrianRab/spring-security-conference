@@ -18,7 +18,6 @@
         .error {
             color: #ff0000;
         }
-
         .errorblock {
             color: #000;
             background-color: #ffEEEE;
@@ -56,6 +55,3 @@
     </div>
 </body>
 </html>
-
-
-
