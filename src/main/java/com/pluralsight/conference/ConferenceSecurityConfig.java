@@ -1,5 +1,6 @@
 package com.pluralsight.conference;
 
+import com.pluralsight.conference.service.ConferenceUserDetailsContextMapper;
 import javax.sql.DataSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -17,6 +18,9 @@ public class ConferenceSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
     private DataSource dataSource;
+
+    @Autowired
+    private ConferenceUserDetailsContextMapper contextMapper;
 
     @Override
     protected void configure(final HttpSecurity httpSecurity) throws Exception {
@@ -56,12 +60,16 @@ public class ConferenceSecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 .passwordCompare()
                 .passwordEncoder(passwordEncoder())
-                .passwordAttribute("userPassword");
+                .passwordAttribute("userPassword")
+                .and()
+                .userDetailsContextMapper(contextMapper);
     }
 
     @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
+
+
 
 }
