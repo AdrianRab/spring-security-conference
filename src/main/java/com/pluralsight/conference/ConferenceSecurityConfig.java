@@ -31,6 +31,7 @@ public class ConferenceSecurityConfig extends WebSecurityConfigurerAdapter {
                 .authorizeRequests()
                 .antMatchers("/anonymous*").anonymous()
                 .antMatchers("/login*").permitAll()
+                .antMatchers("/account*").permitAll()
                 .antMatchers("assets/css/**", "assets/js/**", "/images/**").permitAll()
                 .antMatchers("/index*").permitAll()
                 .anyRequest().authenticated()
@@ -74,11 +75,12 @@ public class ConferenceSecurityConfig extends WebSecurityConfigurerAdapter {
 //                .roles("USER");
 
         /**DATABASE AUTHENTICATION */
-//        auth.jdbcAuthentication().dataSource(dataSource).passwordEncoder(passwordEncoder());
+        auth.jdbcAuthentication().dataSource(dataSource)
+                .passwordEncoder(passwordEncoder());
 
 
         /**LDAP AUTHENTICATION */
-        auth.ldapAuthentication()
+        /* auth.ldapAuthentication()
                 .userDnPatterns("uid={0},ou=people")
                 .groupSearchBase("ou=groups")
                 .contextSource()
@@ -89,6 +91,8 @@ public class ConferenceSecurityConfig extends WebSecurityConfigurerAdapter {
                 .passwordAttribute("userPassword")
                 .and()
                 .userDetailsContextMapper(contextMapper);
+                *./
+         */
     }
 
     @Bean
